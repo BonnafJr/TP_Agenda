@@ -7,14 +7,15 @@ import java.util.*;
  * Description : An agenda that stores events
  */
 public class Agenda {
-    /**
-     * Adds an event to this agenda
-     *
-     * @param e the event to add
-     */
+    
+ArrayList<Event> agenda;
+
+    public Agenda() {
+        this.agenda = new ArrayList<>();
+    }
+
     public void addEvent(Event e) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        agenda.add(e);
     }
 
     /**
