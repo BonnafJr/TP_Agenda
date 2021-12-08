@@ -8,14 +8,14 @@ import java.util.*;
  */
 public class Agenda {
     
-ArrayList<Event> agenda;
+ArrayList<Event> eventList;
 
     public Agenda() {
-        this.agenda = new ArrayList<>();
+        this.eventList = new ArrayList<>();
     }
 
     public void addEvent(Event e) {
-        agenda.add(e);
+        eventList.add(e);
     }
 
     /**
