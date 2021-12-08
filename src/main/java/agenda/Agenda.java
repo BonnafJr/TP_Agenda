@@ -25,7 +25,10 @@ ArrayList<Event> eventList;
      * @return and iteraror to the events that occur on that day
      */
     public List<Event> eventsInDay(LocalDate day) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
-    }
+        for (int i = 0; i < eventList.size(); i++) {
+            if(eventList.get(i).getStart() == day){
+                return eventList.get(i);
+            }
+        }
+}
 }
