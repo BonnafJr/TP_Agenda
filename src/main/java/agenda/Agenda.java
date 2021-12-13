@@ -18,11 +18,9 @@ public class Agenda {
  
     public List<Event> eventsInDay(LocalDate day) {
         ArrayList<Event> eventsDay = new ArrayList<>();
-        for (Event e : eventList) {
-            if (e.isInDay(day)) {
-                eventsDay.add(e);
-            }
-        }
+        eventList.stream().filter(e -> (e.isInDay(day))).forEachOrdered(e -> {
+            eventsDay.add(e);
+        });
         return eventsDay;
     }
 
