@@ -12,9 +12,9 @@ public class RepetitiveEvent extends Event {
     private ChronoUnit frequence;
     private List<LocalDate> lesExceptions;
 
-    public RepetitiveEvent(String title, LocalDateTime start, Duration duration, ChronoUnit frequency) {
+    public RepetitiveEvent(String title, LocalDateTime start, Duration duration, ChronoUnit frequence) {
         super(title, start, duration);
-        this.frequence = frequency;
+        this.frequence = frequence;
         lesExceptions = new ArrayList<>();
     }
 
@@ -22,7 +22,7 @@ public class RepetitiveEvent extends Event {
         lesExceptions.add(date);
     }
 
-    public ChronoUnit getFrequency() {
+    public ChronoUnit getFrequence() {
         return frequence;
     }
     
