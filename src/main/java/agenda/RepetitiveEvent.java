@@ -8,42 +8,51 @@ import java.time.temporal.ChronoUnit;
  * Description : A repetitive Event
  */
 public class RepetitiveEvent extends Event {
-    /**
-     * Constructs a repetitive event
-     *
-     * @param title the title of this event
-     * @param start the start of this event
-     * @param duration myDuration in seconds
-     * @param frequency one of :
-     * <UL>
-     * <LI>ChronoUnit.DAYS for daily repetitions</LI>
-     * <LI>ChronoUnit.WEEKS for weekly repetitions</LI>
-     * <LI>ChronoUnit.MONTHS for monthly repetitions</LI>
-     * </UL>
-     */
+
+    private ChronoUnit frequence;
+    private List<LocalDate> lesExceptions;
+
     public RepetitiveEvent(String title, LocalDateTime start, Duration duration, ChronoUnit frequency) {
         super(title, start, duration);
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        this.frequence = frequency;
+        lesExceptions = new ArrayList<>();
     }
 
-    /**
-     * Adds an exception to the occurrence of this repetitive event
-     *
-     * @param date the event will not occur at this date
-     */
     public void addException(LocalDate date) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        lesExceptions.add(date);
     }
 
-    /**
-     *
-     * @return the type of repetition
-     */
     public ChronoUnit getFrequency() {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");    
+        return frequence;
     }
+    
+    @Override
+    public boolean isInDay(LocalDate aDay) {
+        if (super.isInDay(aDay)) {
+            return true;
+        }
+        if (!lesExceptions.stream().noneMatch(date -> (aDay.isEqual(date)))) {
+            return false;
+        }
+        int year = myStart.getYear();
+        int month = myStart.getMonthValue();
+        int day = myStart.getDayOfMonth();
 
+        while (aDay.isAfter(LocalDate.of(year, month, day))) {
+            if (super.isInDay(LocalDate.of(year, month, day))) {
+                return true;
+            }else{
+                if(ChronoUnit.DAYS==frequence){
+                    day+=1;
+                }
+                if(ChronoUnit.WEEKS==frequence){
+                    day+=7;
+                }
+                if(ChronoUnit.MONTHS==frequence){
+                    month+=1;
+                }
+            }
+        }
+        return false;
+    }
 }
