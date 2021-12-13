@@ -3,29 +3,37 @@ package agenda;
 import java.time.LocalDate;
 import java.util.*;
 
-/**
- * Description : An agenda that stores events
- */
 public class Agenda {
-    
-ArrayList<Event> agenda;
+
+    private final List<Event> eventList;
 
     public Agenda() {
-        this.agenda = new ArrayList<>();
+        eventList = new ArrayList<>();
     }
 
     public void addEvent(Event e) {
-        agenda.add(e);
+        eventList.add(e);
     }
 
-    /**
-     * Computes the events that occur on a given day
-     *
-     * @param day the day toi test
-     * @return and iteraror to the events that occur on that day
-     */
+ 
     public List<Event> eventsInDay(LocalDate day) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        ArrayList<Event> eventsDay = new ArrayList<>();
+        eventList.stream().filter(e -> (e.isInDay(day))).forEachOrdered(e -> {
+            eventsDay.add(e);
+        });
+        return eventsDay;
     }
+
+    public List<Event> findByTitle(String title) {
+        ArrayList<Event> eventsDay = new ArrayList<>();
+        eventList.stream().filter(e -> (e.getTitle().equals(title))).forEachOrdered(e -> {
+            eventsDay.add(e);
+        });
+        return eventsDay;
+    }
+
+    public boolean isFreeFor(Event e) {
+        return eventList.stream().noneMatch(event -> (e.getStart().plus(e.getDuration()).isAfter(event.getStart()) && e.getStart().isBefore(event.getStart().plus(event.getDuration()))));
+    }
+
 }
